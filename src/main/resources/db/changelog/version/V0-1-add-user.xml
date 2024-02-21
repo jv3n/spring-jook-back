@@ -1,0 +1,33 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="addUsers" author="votre_nom">
+        <insert tableName="user">
+            <column name="id" value="1"/>
+            <column name="name" value="Utilisateur 1"/>
+            <column name="email" value="user1@example.com"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="2"/>
+            <column name="name" value="Utilisateur 2"/>
+            <column name="email" value="user2@example.com"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="3"/>
+            <column name="name" value="Utilisateur 3"/>
+            <column name="email" value="user3@example.com"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="4"/>
+            <column name="name" value="Utilisateur 4"/>
+            <column name="email" value="user4@example.com"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="5"/>
+            <column name="name" value="Utilisateur 5"/>
+            <column name="email" value="user5@example.com"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
