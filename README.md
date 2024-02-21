@@ -26,3 +26,11 @@ First, start the docker container for postgres database.
 ```shell
 docker-compose up --build --force-recreate -d
 ```
+
+## Clean Archi Example
+https://github.com/Choi-Jinwoo/spring-clean-architecture-example/tree/master
+
+## Data 
+Full data for countries: https://github.com/dr5hn/countries-states-cities-database
+https://github.com/dr5hn/countries-states-cities-database/blob/master/csv/cities.csv
+https://dr5hn.github.io/countries-states-cities-database/
