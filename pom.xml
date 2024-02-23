@@ -8,8 +8,7 @@
     <artifactId>jv3n-spring-jook-back</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
-    <name>demo-spring-jook</name>
+    <name>spring-jook-back</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -19,6 +18,7 @@
     </parent>
 
     <properties>
+        <spring.boot.version>3.2.2</spring.boot.version>
         <java.version>21</java.version>
         <jooq.version>3.18.5</jooq.version>
         <postgres.version>42.6.0</postgres.version>
@@ -37,11 +37,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-webflux</artifactId>-->
-<!--            <version>${spring.webfulx.version}</version>-->
-<!--        </dependency>-->
 
         <!-- DB -->
         <dependency>
@@ -81,10 +76,22 @@
             <version>${org.mapstruct.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
         <!-- Test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>3.2.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -114,6 +121,72 @@
                         <!-- other annotation processors -->
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-yaml</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <apiDocsUrl>http://localhost:8080/v3/api-docs.yaml</apiDocsUrl>
+                    <outputDir>${project.basedir}/src/main/resources/</outputDir>
+                    <outputFileName>openapi.yaml</outputFileName>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+            <!-- open api swagger gen --><!-- Plugin OpenAPI Generator -->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.3.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-typescript</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
+                            <generatorName>typescript-angular</generatorName>
+                            <output>${project.build.directory}/generated-sources/swagger</output>
+                            <configOptions>
+                                <packageName>model</packageName>
+                                <npmName>jv3n-api</npmName>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>npm-install-and-build</id>
+                        <phase>generate-resources</phase> <!-- Exécutez dans la phase generate-resources -->
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>sh</executable> <!-- Utilisez sh pour exécuter un fichier shell -->
+                            <workingDirectory>${project.build.directory}/generated-sources/swagger</workingDirectory> <!-- Répertoire de travail -->
+                            <arguments>
+                                <argument>${project.basedir}/src/main/resources/build.swagger.sh</argument> <!-- Chemin vers votre fichier shell -->
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- JOOK doc basic example => https://www.jooq.org/doc/latest/manual/code-generation/codegen-configuration/-->

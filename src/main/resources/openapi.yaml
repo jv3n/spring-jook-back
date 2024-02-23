@@ -1,0 +1,60 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/country/{name}:
+    get:
+      tags:
+      - country-controller
+      operationId: getByName
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CountryDTO'
+  /api/countries:
+    get:
+      tags:
+      - country-controller
+      operationId: getCountries
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountryDTO'
+components:
+  schemas:
+    CountryDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        shortIsoCode:
+          type: string
+        longIsoCode:
+          type: string
+        countryCode:
+          type: integer
+          format: int32
+        phoneCode:
+          type: integer
+          format: int32

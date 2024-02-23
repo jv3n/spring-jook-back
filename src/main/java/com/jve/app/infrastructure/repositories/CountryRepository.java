@@ -20,4 +20,10 @@ public class CountryRepository {
     public List<CountryRecord> findAll() {
         return dslContext.selectFrom(COUNTRY).fetch();
     }
+
+    public CountryRecord findByName(String countryName) {
+        return dslContext.selectFrom(COUNTRY)
+                .where(COUNTRY.NAME.eq(countryName.toUpperCase()))
+                .fetchOne();
+    }
 }

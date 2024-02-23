@@ -1,5 +1,6 @@
 package com.jve.app.core.usecases.findallcountries;
 
+import com.jve.app.core.entities.CountryEntityMapper;
 import com.jve.app.core.usecases.findallcountries.model.dto.CountryDTO;
 import com.jve.app.infrastructure.gateway.country.CountryGateway;
 import org.springframework.stereotype.Service;
@@ -10,21 +11,21 @@ import java.util.List;
 public class FindCountriesInteractor implements FindCountriesBoundary {
 
     private final CountryGateway gateway;
+    private final CountryEntityMapper mapper;
 
-    public FindCountriesInteractor(CountryGateway gateway) {
+    public FindCountriesInteractor(CountryGateway gateway, CountryEntityMapper mapper) {
         this.gateway = gateway;
+        this.mapper = mapper;
     }
 
     @Override
     public List<CountryDTO> findAll() {
-        return this.gateway.findAll()
-                .stream().map(entity -> new CountryDTO()
-                        .setId(entity.getId())
-                        .setName(entity.getName())
-                        .setShortIsoCode(entity.getShortIsoCode())
-                        .setLongIsoCode(entity.getLongIsoCode())
-                        .setCountryCode(entity.getCountryCode())
-                        .setPhoneCode(entity.getPhoneCode())
-                ).toList();
+        return this.mapper.toDTOList(this.gateway.findAll());
+    }
+
+    @Override
+    public CountryDTO findByName(String countryName) {
+
+        return this.mapper.toDTO(this.gateway.findByName(countryName));
     }
 }

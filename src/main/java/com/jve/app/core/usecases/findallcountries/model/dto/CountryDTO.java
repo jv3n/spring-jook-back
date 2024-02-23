@@ -7,10 +7,16 @@ public class CountryDTO {
     private String shortIsoCode;
     private String longIsoCode;
     private int countryCode;
+
+
     private Integer phoneCode;
 
     public CountryDTO() {
         /* empty */
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public CountryDTO setId(Long id) {
@@ -18,9 +24,17 @@ public class CountryDTO {
         return this;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public CountryDTO setName(String name) {
         this.name = name;
         return this;
+    }
+
+    public String getShortIsoCode() {
+        return shortIsoCode;
     }
 
     public CountryDTO setShortIsoCode(String shortIsoCode) {
@@ -28,15 +42,28 @@ public class CountryDTO {
         return this;
     }
 
+    public String getLongIsoCode() {
+        return longIsoCode;
+    }
+
     public CountryDTO setLongIsoCode(String longIsoCode) {
         this.longIsoCode = longIsoCode;
         return this;
+    }
+
+    public int getCountryCode() {
+        return countryCode;
     }
 
     public CountryDTO setCountryCode(int countryCode) {
         this.countryCode = countryCode;
         return this;
     }
+
+    public Integer getPhoneCode() {
+        return phoneCode;
+    }
+
 
     public CountryDTO setPhoneCode(Integer phoneCode) {
         this.phoneCode = phoneCode;

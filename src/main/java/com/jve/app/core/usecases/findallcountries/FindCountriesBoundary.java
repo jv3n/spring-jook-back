@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface FindCountriesBoundary {
     List<CountryDTO> findAll();
+    CountryDTO findByName(String countryName);
 }

@@ -17,7 +17,7 @@ public interface CountryMapper {
     @Mapping(target = "longIsoCode", source = "iso3")
     @Mapping(target = "countryCode", source = "numcode")
     @Mapping(target = "phoneCode", source = "phonecode")
-    CountryEntity toDTO(CountryRecord record);
+    CountryEntity toDTO(CountryRecord rec);
 
-    List<CountryEntity> toDTOList(List<CountryRecord> records);
+    List<CountryEntity> toDTOList(List<CountryRecord> recs);
 }
