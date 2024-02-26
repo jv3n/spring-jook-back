@@ -1,0 +1,46 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="create-add-data-t_state" author="jve">
+        <createTable tableName="t_state">
+            <column name="sta_id" type="numeric">
+                <constraints primaryKey="true" primaryKeyName="pk_t_state"/>
+            </column>
+            <column name="sta_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sta_country_id" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sta_country_code" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sta_country_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sta_state_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sta_type" type="varchar(255)"/>
+            <column name="sta_latitude" type="numeric"/>
+            <column name="sta_longitude" type="numeric"/>
+        </createTable>
+
+        <loadData
+                file="classpath:db/csv/country/states.csv"
+                separator=","
+                tableName="t_state">
+            <column name="sta_id" header="id"/>
+            <column name="sta_name" header="name"/>
+            <column name="sta_country_id" header="country_id"/>
+            <column name="sta_country_code" header="country_code"/>
+            <column name="sta_country_name" header="country_name"/>
+            <column name="sta_state_code" header="state_code"/>
+            <column name="sta_type" header="type"/>
+            <column name="sta_latitude" header="latitude"/>
+            <column name="sta_longitude" header="longitude"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,55 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="create-add-data-t_city" author="jve">
+        <createTable tableName="t_city">
+            <column name="cty_id" type="numeric">
+                <constraints primaryKey="true" primaryKeyName="pk_t_city"/>
+            </column>
+            <column name="cty_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cty_state_id" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cty_state_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cty_state_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cty_country_id" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cty_country_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cty_country_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cty_latitude" type="numeric"/>
+            <column name="cty_longitude" type="numeric"/>
+            <column name="cty_wikiDataId" type="varchar(255)"/>
+        </createTable>
+
+        <loadData
+                file="classpath:db/csv/country/cities.csv"
+                separator=","
+                tableName="t_city">
+            <column name="cty_id" header="id"/>
+            <column name="cty_name" header="name"/>
+            <column name="cty_state_id" header="state_id"/>
+            <column name="cty_state_code" header="state_code"/>
+            <column name="cty_state_name" header="state_name"/>
+            <column name="cty_country_id" header="country_id"/>
+            <column name="cty_country_code" header="country_code"/>
+            <column name="cty_country_name" header="country_name"/>
+            <column name="cty_latitude" header="latitude"/>
+            <column name="cty_longitude" header="longitude"/>
+            <column name="cty_wikiDataId" header="wikiDataId"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

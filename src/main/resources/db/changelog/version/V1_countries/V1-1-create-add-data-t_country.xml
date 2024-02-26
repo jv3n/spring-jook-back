@@ -1,0 +1,73 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="create-add-data-t_country" author="jve">
+        <createTable tableName="t_country">
+            <column name="cou_id" type="numeric">
+                <constraints primaryKey="true" primaryKeyName="pk_t_country"/>
+            </column>
+            <column name="cou_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cou_iso3" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cou_iso2" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cou_numeric_code" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cou_phone_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cou_capital" type="varchar(255)"/>
+            <column name="cou_currency" type="varchar(255)"/>
+            <column name="cou_currency_name" type="varchar(255)"/>
+            <column name="cou_currency_symbol" type="varchar(255)"/>
+            <column name="cou_tld" type="varchar(3)"/>
+            <column name="cou_native" type="varchar(255)"/>
+            <column name="cou_region" type="varchar(255)"/>
+            <column name="cou_region_id" type="numeric"/>
+            <column name="cou_subregion" type="varchar(255)"/>
+            <column name="cou_subregion_id" type="numeric"/>
+            <column name="cou_nationality" type="varchar(255)"/>
+            <column name="cou_timezones" type="text"/>
+            <column name="cou_latitude" type="numeric"/>
+            <column name="cou_longitude" type="numeric"/>
+            <column name="cou_emoji" type="varchar(255)"/>
+            <column name="cou_emojiU" type="varchar(255)"/>
+        </createTable>
+
+        <loadData
+                file="classpath:db/csv/country/countries.csv"
+                separator=","
+                tableName="t_country">
+            <column name="cou_id" header="id"/>
+            <column name="cou_name" header="name"/>
+            <column name="cou_iso3" header="iso3"/>
+            <column name="cou_iso2" header="iso2"/>
+            <column name="cou_numeric_code" header="numeric_code"/>
+            <column name="cou_phone_code" header="phone_code"/>
+            <column name="cou_capital" header="capital"/>
+            <column name="cou_currency" header="currency"/>
+            <column name="cou_currency_name" header="currency_name"/>
+            <column name="cou_currency_symbol" header="currency_symbol"/>
+            <column name="cou_tld" header="tld"/>
+            <column name="cou_native" header="native"/>
+            <column name="cou_region" header="region"/>
+            <column name="cou_region_id" header="region_id"/>
+            <column name="cou_subregion" header="subregion"/>
+            <column name="cou_subregion_id" header="subregion_id"/>
+            <column name="cou_nationality" header="nationality"/>
+            <column name="cou_timezones" header="timezones" type="text"/>
+            <column name="cou_latitude" header="latitude"/>
+            <column name="cou_longitude" header="longitude"/>
+            <column name="cou_emoji" header="emoji"/>
+            <column name="cou_emojiU" header="emojiU"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

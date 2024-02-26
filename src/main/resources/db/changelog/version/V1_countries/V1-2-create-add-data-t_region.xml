@@ -1,0 +1,29 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="create-add-data-t_region" author="jve">
+        <createTable tableName="t_region">
+            <column name="reg_id" type="numeric">
+                <constraints primaryKey="true" primaryKeyName="pk_t_region"/>
+            </column>
+            <column name="reg_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reg_wikiDataId" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <loadData
+                file="classpath:db/csv/country/regions.csv"
+                separator=","
+                tableName="t_region">
+            <column name="reg_id" header="id"/>
+            <column name="reg_name" header="name"/>
+            <column name="reg_wikiDataId" header="wikiDataId"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,78 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="country-add-constraint" author="jve">
+
+        <addForeignKeyConstraint
+                baseColumnNames="cou_region_id"
+                baseTableName="t_country"
+                constraintName="fk_cou_region_id"
+                referencedColumnNames="reg_id"
+                referencedTableName="t_region"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="cou_subregion_id"
+                baseTableName="t_country"
+                constraintName="fk_cou_subregion_id"
+                referencedColumnNames="srg_id"
+                referencedTableName="t_subregion"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="srg_region_id"
+                baseTableName="t_subregion"
+                constraintName="fk_srg_region_id"
+                referencedColumnNames="reg_id"
+                referencedTableName="t_region"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="sta_country_id"
+                baseTableName="t_state"
+                constraintName="fk_sta_country_id"
+                referencedColumnNames="cou_id"
+                referencedTableName="t_country"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="cty_country_id"
+                baseTableName="t_city"
+                constraintName="fk_cty_country_id"
+                referencedColumnNames="cou_id"
+                referencedTableName="t_country"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="cty_state_id"
+                baseTableName="t_city"
+                constraintName="fk_cty_state_id"
+                referencedColumnNames="sta_id"
+                referencedTableName="t_state"/>
+
+        <!-- INDEX -->
+
+        <createIndex indexName="idx_cou_region_id" tableName="t_country">
+            <column name="cou_region_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_cou_subregion_id" tableName="t_country">
+            <column name="cou_subregion_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_srg_region_id" tableName="t_subregion">
+            <column name="srg_region_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_sta_country_id" tableName="t_state">
+            <column name="sta_country_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_cty_country_id" tableName="t_city">
+            <column name="cty_country_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_cty_state_id" tableName="t_city">
+            <column name="cty_state_id"/>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>
