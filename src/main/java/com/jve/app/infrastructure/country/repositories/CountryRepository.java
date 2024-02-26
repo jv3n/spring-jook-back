@@ -1,4 +1,4 @@
-package com.jve.app.infrastructure.repositories;
+package com.jve.app.infrastructure.country.repositories;
 
 import com.jve.app.tables.records.CountryRecord;
 import org.jooq.DSLContext;

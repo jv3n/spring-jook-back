@@ -23,7 +23,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/CountryDTO'
+                $ref: '#/components/schemas/CountryResponse'
   /api/countries:
     get:
       tags:
@@ -37,10 +37,10 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CountryDTO'
+                  $ref: '#/components/schemas/CountryResponse'
 components:
   schemas:
-    CountryDTO:
+    CountryResponse:
       type: object
       properties:
         id:

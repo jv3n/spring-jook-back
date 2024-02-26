@@ -1,6 +1,6 @@
-package com.jve.app.infrastructure.gateway.country;
+package com.jve.app.domain.country.port;
 
-import com.jve.app.core.entities.CountryEntity;
+import com.jve.app.domain.country.entity.CountryEntity;
 
 import java.util.List;
 

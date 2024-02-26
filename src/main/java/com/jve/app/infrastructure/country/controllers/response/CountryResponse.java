@@ -1,6 +1,6 @@
-package com.jve.app.core.usecases.findallcountries.model.dto;
+package com.jve.app.infrastructure.country.controllers.response;
 
-public class CountryDTO {
+public class CountryResponse {
 
     private Long id;
     private String name;
@@ -11,7 +11,7 @@ public class CountryDTO {
 
     private Integer phoneCode;
 
-    public CountryDTO() {
+    public CountryResponse() {
         /* empty */
     }
 
@@ -19,7 +19,7 @@ public class CountryDTO {
         return id;
     }
 
-    public CountryDTO setId(Long id) {
+    public CountryResponse setId(Long id) {
         this.id = id;
         return this;
     }
@@ -28,7 +28,7 @@ public class CountryDTO {
         return name;
     }
 
-    public CountryDTO setName(String name) {
+    public CountryResponse setName(String name) {
         this.name = name;
         return this;
     }
@@ -37,7 +37,7 @@ public class CountryDTO {
         return shortIsoCode;
     }
 
-    public CountryDTO setShortIsoCode(String shortIsoCode) {
+    public CountryResponse setShortIsoCode(String shortIsoCode) {
         this.shortIsoCode = shortIsoCode;
         return this;
     }
@@ -46,7 +46,7 @@ public class CountryDTO {
         return longIsoCode;
     }
 
-    public CountryDTO setLongIsoCode(String longIsoCode) {
+    public CountryResponse setLongIsoCode(String longIsoCode) {
         this.longIsoCode = longIsoCode;
         return this;
     }
@@ -55,7 +55,7 @@ public class CountryDTO {
         return countryCode;
     }
 
-    public CountryDTO setCountryCode(int countryCode) {
+    public CountryResponse setCountryCode(int countryCode) {
         this.countryCode = countryCode;
         return this;
     }
@@ -65,7 +65,7 @@ public class CountryDTO {
     }
 
 
-    public CountryDTO setPhoneCode(Integer phoneCode) {
+    public CountryResponse setPhoneCode(Integer phoneCode) {
         this.phoneCode = phoneCode;
         return this;
     }

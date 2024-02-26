@@ -1,4 +1,4 @@
-package com.jve.app.core.entities;
+package com.jve.app.domain.country.entity;
 
 public class CountryEntity {
 

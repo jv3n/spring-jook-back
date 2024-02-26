@@ -1,6 +1,6 @@
-package com.jve.app.infrastructure.repositories.mapper;
+package com.jve.app.infrastructure.country.repositories.mapper;
 
-import com.jve.app.core.entities.CountryEntity;
+import com.jve.app.domain.country.entity.CountryEntity;
 import com.jve.app.tables.records.CountryRecord;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring")
-public interface CountryMapper {
+public interface CountryRecordMapper {
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
