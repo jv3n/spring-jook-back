@@ -18,17 +18,28 @@
     </parent>
 
     <properties>
-        <spring.boot.version>3.2.2</spring.boot.version>
-        <java.version>21</java.version>
-        <jooq.version>3.18.5</jooq.version>
-        <postgres.version>42.6.0</postgres.version>
-        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <v.angular.gen>17.2.2</v.angular.gen>
+        <v.java>21</v.java>
+        <v.jooq-codegen-maven>3.19.4</v.jooq-codegen-maven>
+        <v.jooq>3.19.4</v.jooq>
+        <v.junit-jupiter-engine>5.10.2</v.junit-jupiter-engine>
+        <v.liquibase-core>4.26.0</v.liquibase-core>
+        <v.mapstruct>1.5.5.Final</v.mapstruct>
+        <v.maven.compiler.plugin>3.12.1</v.maven.compiler.plugin>
+        <v.openapi-generator-maven-plugin>7.3.0</v.openapi-generator-maven-plugin>
+        <v.postgresql>42.7.2</v.postgresql>
+        <v.springdoc-openapi-maven-plugin>1.4</v.springdoc-openapi-maven-plugin>
+        <v.springdoc-openapi-starter-webmvc>2.3.0</v.springdoc-openapi-starter-webmvc>
 
         <!-- db-->
         <db.driver>org.postgresql.Driver</db.driver>
         <db.url>jdbc:postgresql://localhost:5432/postgres</db.url>
         <db.user>admin</db.user>
         <db.pw>admin</db.pw>
+
+        <!-- resource -->
+        <link.project.resources>${project.basedir}/src/main/resources</link.project.resources>
+        <link.build.generated-sources>${project.build.directory}/generated-sources</link.build.generated-sources>
     </properties>
 
     <dependencies>
@@ -46,11 +57,12 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+            <version>${v.liquibase-core}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
+            <version>${v.postgresql}</version>
         </dependency>
 
         <!-- JOOK-->
@@ -61,37 +73,31 @@
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
-            <version>${jooq.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-codegen</artifactId>
-            <version>3.18.5</version>
-            <scope>provided</scope>
+            <version>${v.jooq}</version>
         </dependency>
 
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.version}</version>
+            <version>${v.mapstruct}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-            <version>2.3.0</version>
+            <version>${v.springdoc-openapi-starter-webmvc}</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
+            <version>${v.springdoc-openapi-starter-webmvc}</version>
         </dependency>
 
         <!-- Test-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>3.2.2</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${v.junit-jupiter-engine}</version>
             <scope>test</scope>
         </dependency>
 
@@ -108,17 +114,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${v.maven.compiler.plugin}</version>
                 <configuration>
-                    <source>1.8</source> <!-- depending on your project -->
-                    <target>1.8</target> <!-- depending on your project -->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
-                            <version>${org.mapstruct.version}</version>
+                            <version>${v.mapstruct}</version>
                         </path>
-                        <!-- other annotation processors -->
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
@@ -126,7 +129,7 @@
             <plugin>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-maven-plugin</artifactId>
-                <version>1.1</version>
+                <version>${v.springdoc-openapi-maven-plugin}</version>
                 <executions>
                     <execution>
                         <id>generate-yaml</id>
@@ -138,16 +141,16 @@
                 </executions>
                 <configuration>
                     <apiDocsUrl>http://localhost:8080/v3/api-docs.yaml</apiDocsUrl>
-                    <outputDir>${project.basedir}/src/main/resources/</outputDir>
+                    <outputDir>${link.project.resources}</outputDir>
                     <outputFileName>openapi.yaml</outputFileName>
                     <skip>false</skip>
                 </configuration>
             </plugin>
-            <!-- open api swagger gen --><!-- Plugin OpenAPI Generator -->
+            <!-- open api swagger gen -->
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>7.3.0</version>
+                <version>${v.openapi-generator-maven-plugin}</version>
                 <executions>
                     <execution>
                         <id>generate-typescript</id>
@@ -156,38 +159,40 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
+                            <inputSpec>${link.project.resources}/openapi.yaml</inputSpec>
                             <generatorName>typescript-angular</generatorName>
-                            <output>${project.build.directory}/generated-sources/swagger</output>
+                            <output>${link.build.generated-sources}/swagger</output>
                             <configOptions>
-                                <packageName>model</packageName>
-                                <npmName>jv3n-api</npmName>
+                                <ngVersion>${v.angular.gen}</ngVersion>
+                                <fileNaming>kebab-case</fileNaming>
+                                <packageName>jv3n-api</packageName>
+                                <!-- <npmName>jv3n-api</npmName> -->
                             </configOptions>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>npm-install-and-build</id>
-                        <phase>generate-resources</phase> <!-- Exécutez dans la phase generate-resources -->
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>sh</executable> <!-- Utilisez sh pour exécuter un fichier shell -->
-                            <workingDirectory>${project.build.directory}/generated-sources/swagger</workingDirectory> <!-- Répertoire de travail -->
-                            <arguments>
-                                <argument>${project.basedir}/src/main/resources/build.swagger.sh</argument> <!-- Chemin vers votre fichier shell -->
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.codehaus.mojo</groupId>-->
+            <!--                <artifactId>exec-maven-plugin</artifactId>-->
+            <!--                <version>3.2.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>npm-install-and-build</id>-->
+            <!--                        <phase>generate-resources</phase> &lt;!&ndash; Exécutez dans la phase generate-resources &ndash;&gt;-->
+            <!--                        <goals>-->
+            <!--                            <goal>exec</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <executable>sh</executable> &lt;!&ndash; Utilisez sh pour exécuter un fichier shell &ndash;&gt;-->
+<!--                                        <workingDirectory>${link.build.generated-sources}/swagger</workingDirectory> &lt;!&ndash; Répertoire de travail &ndash;&gt;-->
+            <!--                            <arguments>-->
+            <!--                                <argument>${link.project.resources}/build.swagger.sh</argument> &lt;!&ndash; Chemin vers votre fichier shell &ndash;&gt;-->
+            <!--                            </arguments>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
             <!-- JOOK doc basic example => https://www.jooq.org/doc/latest/manual/code-generation/codegen-configuration/-->
             <plugin>
@@ -205,7 +210,7 @@
                            Install the others locally using the provided scripts, or access them from here: https://repo.jooq.org -->
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
-                <version>3.18.5</version>
+                <version>${v.jooq-codegen-maven}</version>
 
                 <!-- The plugin should hook into the generate goal -->
                 <executions>
@@ -221,7 +226,7 @@
                     <dependency>
                         <groupId>org.postgresql</groupId>
                         <artifactId>postgresql</artifactId>
-                        <version>42.6.0</version>
+                        <version>${v.postgresql}</version>
                     </dependency>
                 </dependencies>
 
@@ -242,7 +247,6 @@
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
-                            <excludes></excludes>
                             <!-- In case your database supports catalogs, e.g. SQL Server:
                             <inputCatalog>public</inputCatalog>
                               -->
@@ -250,11 +254,31 @@
                         </database>
                         <target>
                             <packageName>com.jve.app</packageName>
-                            <directory>target/generated-sources/jooq</directory>
+                            <directory>${link.build.generated-sources}/jooq</directory>
                         </target>
                     </generator>
                 </configuration>
             </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <version>3.6.1</version>-->
+<!--                <configuration>-->
+<!--                    <artifactItems>-->
+<!--                        <artifactItem>-->
+<!--                            <groupId>[ groupId ]</groupId>-->
+<!--                            <artifactId>[ artifactId ]</artifactId>-->
+<!--                            <version>[ version ]</version>-->
+<!--                            <type>[ packaging ]</type>-->
+<!--                            <classifier> [classifier - optional] </classifier>-->
+<!--                            <overWrite>[ true or false ]</overWrite>-->
+<!--                            <outputDirectory>[ output directory ]</outputDirectory>-->
+<!--                            <destFileName>[ filename ]</destFileName>-->
+<!--                        </artifactItem>-->
+<!--                    </artifactItems>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
