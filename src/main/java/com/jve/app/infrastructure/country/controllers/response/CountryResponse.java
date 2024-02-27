@@ -72,7 +72,7 @@ public class CountryResponse {
 
     @Override
     public String toString() {
-        return "CountryDTO{" +
+        return "CountryResponse{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", shortIsoCode='" + shortIsoCode + '\'' +

@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <version>[3.2,4.0)</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -30,6 +30,7 @@
         <v.postgresql>42.7.2</v.postgresql>
         <v.springdoc-openapi-maven-plugin>1.4</v.springdoc-openapi-maven-plugin>
         <v.springdoc-openapi-starter-webmvc>2.3.0</v.springdoc-openapi-starter-webmvc>
+        <v.spring-boot-starter>3.2.2</v.spring-boot-starter>
 
         <!-- db-->
         <db.driver>org.postgresql.Driver</db.driver>
@@ -47,57 +48,90 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <scope>compile</scope>
         </dependency>
 
         <!-- DB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${v.liquibase-core}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${v.postgresql}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- JOOK-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
             <version>${v.jooq}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${v.mapstruct}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
             <version>${v.springdoc-openapi-starter-webmvc}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${v.springdoc-openapi-starter-webmvc}</version>
+            <scope>compile</scope>
         </dependency>
 
-        <!-- Test-->
+        <!-- TESTS-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${v.junit-jupiter-engine}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${v.junit-jupiter-engine}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${v.spring-boot-starter}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.4.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.25.3</version>
             <scope>test</scope>
         </dependency>
 
@@ -185,7 +219,7 @@
             <!--                        </goals>-->
             <!--                        <configuration>-->
             <!--                            <executable>sh</executable> &lt;!&ndash; Utilisez sh pour exécuter un fichier shell &ndash;&gt;-->
-<!--                                        <workingDirectory>${link.build.generated-sources}/swagger</workingDirectory> &lt;!&ndash; Répertoire de travail &ndash;&gt;-->
+            <!--                            <workingDirectory>${link.build.generated-sources}/swagger</workingDirectory> &lt;!&ndash; Répertoire de travail &ndash;&gt;-->
             <!--                            <arguments>-->
             <!--                                <argument>${link.project.resources}/build.swagger.sh</argument> &lt;!&ndash; Chemin vers votre fichier shell &ndash;&gt;-->
             <!--                            </arguments>-->
@@ -260,25 +294,31 @@
                 </configuration>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-dependency-plugin</artifactId>-->
-<!--                <version>3.6.1</version>-->
-<!--                <configuration>-->
-<!--                    <artifactItems>-->
-<!--                        <artifactItem>-->
-<!--                            <groupId>[ groupId ]</groupId>-->
-<!--                            <artifactId>[ artifactId ]</artifactId>-->
-<!--                            <version>[ version ]</version>-->
-<!--                            <type>[ packaging ]</type>-->
-<!--                            <classifier> [classifier - optional] </classifier>-->
-<!--                            <overWrite>[ true or false ]</overWrite>-->
-<!--                            <outputDirectory>[ output directory ]</outputDirectory>-->
-<!--                            <destFileName>[ filename ]</destFileName>-->
-<!--                        </artifactItem>-->
-<!--                    </artifactItems>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.16.2</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>[ groupId ]</groupId>
+                            <artifactId>[ artifactId ]</artifactId>
+                            <version>[ version ]</version>
+                            <type>[ packaging ]</type>
+                            <classifier>[classifier - optional]</classifier>
+                            <overWrite>[ true or false ]</overWrite>
+                            <outputDirectory>[ output directory ]</outputDirectory>
+                            <destFileName>[ filename ]</destFileName>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
