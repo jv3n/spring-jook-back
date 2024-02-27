@@ -35,18 +35,33 @@ class CountryControllerTest {
 
     @Test
     void getByName() throws Exception {
-        CountryResponse expected = new CountryResponse()
-                .setId(75L)
-                .setName("France")
-                .setCountryCode(250)
-                .setPhoneCode(33)
-                .setLongIsoCode("FRA")
-                .setShortIsoCode("FR");
+        CountryResponse expectedUsa = new CountryResponse()
+                .setId(1L)
+                .setName("United States")
+                .setNativeName("United States")
+                .setIso3("USA")
+                .setIso2("US")
+                .setNumericCode(840)
+                .setPhoneCode("1")
+                .setCapitalName("Washington, D.C.")
+                .setCurrency("USD")
+                .setCurrencyName("United States dollar")
+                .setCurrencySymbol("$")
+                .setTopLevelDomain(".us")
+                .setRegion("Americas")
+                .setRegionId(1)
+                .setSubregion("North America")
+                .setSubregionId(1)
+                .setNationality("American")
+                .setLatitude(38)
+                .setLongitude(-77)
+                .setEmoji("🇺🇸")
+                .setEmojiu("U+1F1FA U+1F1F8");
 
-        when(usecase.findByName(expected.getName())).thenReturn(new CountryEntity());
-        when(mapper.toDTO(any(CountryEntity.class))).thenReturn(expected);
+        when(usecase.findByName(expectedUsa.getName())).thenReturn(new CountryEntity());
+        when(mapper.toDTO(any(CountryEntity.class))).thenReturn(expectedUsa);
 
-        var res = mockMvc.perform(MockMvcRequestBuilders.get("/api/country/{name}", expected.getName()))
+        var res = mockMvc.perform(MockMvcRequestBuilders.get("/api/country/{name}", expectedUsa.getName()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -55,6 +70,6 @@ class CountryControllerTest {
         CountryResponse actualResponse = objectMapper.readValue(res.getResponse().getContentAsString(), CountryResponse.class);
 
         // Then compare with assertThat
-        assertThat(actualResponse).isEqualToComparingFieldByField(expected);
+        assertThat(actualResponse).isEqualToComparingFieldByField(expectedUsa);
     }
 }

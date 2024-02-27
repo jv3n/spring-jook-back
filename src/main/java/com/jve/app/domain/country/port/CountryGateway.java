@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CountryGateway {
     List<CountryEntity> findAll();
+
     CountryEntity findByName(String countryName);
 }

@@ -48,13 +48,46 @@ components:
           format: int64
         name:
           type: string
-        shortIsoCode:
+        nativeName:
           type: string
-        longIsoCode:
+        iso3:
           type: string
-        countryCode:
+        iso2:
+          type: string
+        numericCode:
           type: integer
           format: int32
         phoneCode:
+          type: string
+        capitalName:
+          type: string
+        currency:
+          type: string
+        currencyName:
+          type: string
+        currencySymbol:
+          type: string
+        topLevelDomain:
+          type: string
+        region:
+          type: string
+        regionId:
           type: integer
           format: int32
+        subregion:
+          type: string
+        subregionId:
+          type: integer
+          format: int32
+        nationality:
+          type: string
+        latitude:
+          type: integer
+          format: int32
+        longitude:
+          type: integer
+          format: int32
+        emoji:
+          type: string
+        emojiu:
+          type: string

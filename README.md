@@ -11,6 +11,7 @@ For more details, you might want to check the following sections:
 * [Guide to create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.2/maven-plugin/reference/html/#build-image)
 * [JOOQ Access Layer](https://docs.spring.io/spring-boot/docs/3.2.2/reference/htmlsingle/#data.sql.jooq)
 * [Liquibase Migration](https://docs.spring.io/spring-boot/docs/3.2.2/reference/htmlsingle/#howto.data-initialization.migration-tool.liquibase)
+* [jOOQ cook book](https://www.jooq.org/doc/3.19/manual/)
 
 ## Task Tracking
 * Our current tasks can be found on our [Trello Board](https://trello.com/b/uaZkSku9/demo-spring-jook).
@@ -18,6 +19,7 @@ For more details, you might want to check the following sections:
 ## Common Issues
 If you face issues with lingering processes on macOS, you can delete a lingering PID using the following commands:
 ```sh
+lsof -n -i4TCP:8080 
 lsof -n -i4TCP:8080 kill -9 PID
 ```
 
@@ -34,6 +36,3 @@ Our API documentation is available via Swagger at the following URLs when the ap
 * [API Docs in YAML](http://localhost:8080/v3/api-docs.yaml)
 
 For more information on Swagger, refer to [Swagger Springdoc](https://springdoc.org/#spring-webmvc-support).
-
-## Examples
-For a JOOQ example, you can refer [here](https://github.com/pkainulainen/jooq-with-spring-examples/blob/master/jooq-only/src/main/java/net/petrikainulainen/spring/jooq/todo/repository/JOOQTodoRepository.java).

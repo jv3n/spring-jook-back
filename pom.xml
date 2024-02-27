@@ -281,15 +281,25 @@
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
-                            <!-- In case your database supports catalogs, e.g. SQL Server:
-                            <inputCatalog>public</inputCatalog>
-                              -->
+                            <excludes>
+                                databasechangelog.*
+                            </excludes>
                             <inputSchema>public</inputSchema>
                         </database>
                         <target>
                             <packageName>com.jve.app</packageName>
                             <directory>${link.build.generated-sources}/jooq</directory>
                         </target>
+                        <generate>
+                            <relations>true</relations>
+                            <deprecated>false</deprecated>
+                            <records>true</records>
+                            <immutablePojos>false</immutablePojos>
+                            <interfaces>false</interfaces>
+                            <daos>false</daos>
+                            <globalObjectReferences>true</globalObjectReferences>
+                            <fluentSetters>true</fluentSetters>
+                        </generate>
                     </generator>
                 </configuration>
             </plugin>
