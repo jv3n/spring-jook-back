@@ -200,33 +200,35 @@
                                 <ngVersion>${v.angular.gen}</ngVersion>
                                 <fileNaming>kebab-case</fileNaming>
                                 <packageName>jv3n-api</packageName>
-                                <!-- <npmName>jv3n-api</npmName> -->
+                                <npmName>jv3n-api</npmName>
                             </configOptions>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.codehaus.mojo</groupId>-->
-            <!--                <artifactId>exec-maven-plugin</artifactId>-->
-            <!--                <version>3.2.0</version>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>npm-install-and-build</id>-->
-            <!--                        <phase>generate-resources</phase> &lt;!&ndash; Exécutez dans la phase generate-resources &ndash;&gt;-->
-            <!--                        <goals>-->
-            <!--                            <goal>exec</goal>-->
-            <!--                        </goals>-->
-            <!--                        <configuration>-->
-            <!--                            <executable>sh</executable> &lt;!&ndash; Utilisez sh pour exécuter un fichier shell &ndash;&gt;-->
-            <!--                            <workingDirectory>${link.build.generated-sources}/swagger</workingDirectory> &lt;!&ndash; Répertoire de travail &ndash;&gt;-->
-            <!--                            <arguments>-->
-            <!--                                <argument>${link.project.resources}/build.swagger.sh</argument> &lt;!&ndash; Chemin vers votre fichier shell &ndash;&gt;-->
-            <!--                            </arguments>-->
-            <!--                        </configuration>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
+            <!-- exec npm build -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>npm-install-and-build</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>sh</executable>
+                            <workingDirectory>${link.build.generated-sources}/swagger
+                            </workingDirectory>
+                            <arguments>
+                                <argument>${link.project.resources}/build.swagger.sh</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <!-- JOOK doc basic example => https://www.jooq.org/doc/latest/manual/code-generation/codegen-configuration/-->
             <plugin>

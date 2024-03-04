@@ -65,7 +65,7 @@ components:
           type: string
         emoji:
           type: string
-    CityEntity:
+    CityDto:
       type: object
       properties:
         id:
@@ -89,12 +89,8 @@ components:
         states:
           type: array
           items:
-            $ref: '#/components/schemas/StateEntity'
-        cities:
-          type: array
-          items:
-            $ref: '#/components/schemas/CityEntity'
-    StateEntity:
+            $ref: '#/components/schemas/StateDto'
+    StateDto:
       type: object
       properties:
         id:
@@ -110,7 +106,6 @@ components:
           type: integer
           format: int32
         cities:
-          uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/CityEntity'
+            $ref: '#/components/schemas/CityDto'

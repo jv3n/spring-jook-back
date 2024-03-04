@@ -1,16 +1,12 @@
 package com.jve.app.infrastructure.controller.model.dto;
 
-import com.jve.app.domain.city.entity.CityEntity;
-import com.jve.app.domain.state.entity.StateEntity;
-
 import java.util.List;
 
 public class CountryDetailDto {
 
     private Long id;
     private String name;
-    private List<StateEntity> states;
-    private List<CityEntity> cities;
+    private List<StateDto> states;
 
     public CountryDetailDto() {
         /* empty */
@@ -32,29 +28,20 @@ public class CountryDetailDto {
         this.name = name;
     }
 
-    public List<StateEntity> getStates() {
+    public List<StateDto> getStates() {
         return states;
     }
 
-    public void setStates(List<StateEntity> states) {
+    public void setStates(List<StateDto> states) {
         this.states = states;
-    }
-
-    public List<CityEntity> getCities() {
-        return cities;
-    }
-
-    public void setCities(List<CityEntity> cities) {
-        this.cities = cities;
     }
 
     @Override
     public String toString() {
-        return "CountryDetailEntity{" +
+        return "CountryDetailDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", states=" + states +
-                ", cities=" + cities +
                 '}';
     }
 }
