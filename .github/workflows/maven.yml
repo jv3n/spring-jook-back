@@ -1,0 +1,48 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run Liquibase update
+        run: |
+          mvn liquibase:update \
+            -Dliquibase.url=jdbc:postgresql://localhost:5432/postgres \
+            -Dliquibase.username=admin \
+            -Dliquibase.password=admin \
+            -Dliquibase.changeLogFile=src/main/resources/db/changelog/master.xml \
+            -Dliquibase.driver=org.postgresql.Driver
+
+      - name: Run tests
+        run: mvn test
