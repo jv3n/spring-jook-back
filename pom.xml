@@ -176,51 +176,51 @@
                     <skip>false</skip>
                 </configuration>
             </plugin>
-            <!-- open api swagger gen -->
+
             <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>${v.openapi-generator-maven-plugin}</version>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${v.liquibase-core}</version>
                 <executions>
                     <execution>
-                        <id>generate-typescript</id>
-                        <phase>generate-resources</phase>
+                        <phase>process-resources</phase>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>update</goal>
                         </goals>
-                        <configuration>
-                            <inputSpec>${link.project.resources}/openapi.yaml</inputSpec>
-                            <generatorName>typescript-angular</generatorName>
-                            <output>${link.build.generated-sources}/swagger</output>
-                            <configOptions>
-                                <ngVersion>${v.angular.gen}</ngVersion>
-                                <fileNaming>kebab-case</fileNaming>
-                                <packageName>jv3n-api</packageName>
-                                <npmName>jv3n-api</npmName>
-                            </configOptions>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>${db.url}</url>
+                    <username>${db.user}</username>
+                    <password>${db.pw}</password>
+                    <changeLogFile>db/changelog/master.xml</changeLogFile>
+                    <searchPath>src/main/resources</searchPath>
+                </configuration>
             </plugin>
-            <!-- exec npm build -->
+
+            <!-- open api swagger gen -->
 <!--            <plugin>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <artifactId>exec-maven-plugin</artifactId>-->
-<!--                <version>3.2.0</version>-->
+<!--                <groupId>org.openapitools</groupId>-->
+<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                <version>${v.openapi-generator-maven-plugin}</version>-->
 <!--                <executions>-->
 <!--                    <execution>-->
-<!--                        <id>npm-install-and-build</id>-->
+<!--                        <id>generate-typescript</id>-->
 <!--                        <phase>generate-resources</phase>-->
 <!--                        <goals>-->
-<!--                            <goal>exec</goal>-->
+<!--                            <goal>generate</goal>-->
 <!--                        </goals>-->
 <!--                        <configuration>-->
-<!--                            <executable>sh</executable>-->
-<!--                            <workingDirectory>${link.build.generated-sources}/swagger-->
-<!--                            </workingDirectory>-->
-<!--                            <arguments>-->
-<!--                                <argument>${link.project.resources}/build.swagger.sh</argument>-->
-<!--                            </arguments>-->
+<!--                            <inputSpec>${link.project.resources}/openapi.yaml</inputSpec>-->
+<!--                            <generatorName>typescript-angular</generatorName>-->
+<!--                            <output>${link.build.generated-sources}/swagger</output>-->
+<!--                            <configOptions>-->
+<!--                                <ngVersion>${v.angular.gen}</ngVersion>-->
+<!--                                <fileNaming>kebab-case</fileNaming>-->
+<!--                                <packageName>jv3n-api</packageName>-->
+<!--                                <npmName>jv3n-api</npmName>-->
+<!--                            </configOptions>-->
 <!--                        </configuration>-->
 <!--                    </execution>-->
 <!--                </executions>-->
