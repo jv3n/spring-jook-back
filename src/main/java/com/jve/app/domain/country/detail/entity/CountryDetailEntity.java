@@ -8,28 +8,19 @@ import java.util.Set;
 
 public class CountryDetailEntity {
 
-    private Long id;
-    private String name;
-    private Set<StateEntity> states = new HashSet<>();;
+    private CountryEntity country;
+    private Set<StateEntity> states = new HashSet<>();
 
     public CountryDetailEntity() {
         /* empty */
     }
 
-    public Long getId() {
-        return id;
+    public CountryEntity getCountry() {
+        return country;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setCountry(CountryEntity country) {
+        this.country = country;
     }
 
     public Set<StateEntity> getStates() {
@@ -43,8 +34,7 @@ public class CountryDetailEntity {
     @Override
     public String toString() {
         return "CountryDetailEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "country=" + country +
                 ", states=" + states +
                 '}';
     }

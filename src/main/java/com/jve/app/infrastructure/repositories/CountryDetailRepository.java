@@ -13,7 +13,10 @@ import org.jooq.Result;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.jve.app.Tables.*;
@@ -22,8 +25,8 @@ import static com.jve.app.Tables.*;
 @Transactional(readOnly = true)
 @Repository
 public class CountryDetailRepository implements CountryDetailGateway {
-    private final DSLContext dslContext;
 
+    private final DSLContext dslContext;
     private final CountryDetailRepositoryMapper countryDetailRecordMapper;
 
     public CountryDetailRepository(DSLContext dslContext, CountryDetailRepositoryMapper countryDetailRecordMapper) {
@@ -45,12 +48,11 @@ public class CountryDetailRepository implements CountryDetailGateway {
 
         // Initialize maps to store the cities and states
         Map<TStateRecord, Set<TCityRecord>> stateCitiesMap = new HashMap<>();
-        TCountryRecord countryRecord = null;
+        final TCountryRecord[] countryRecord = {null};
 
-        // Iterate over the records and populate the map
-        for (Record r : records) {
-            if (countryRecord == null) {
-                countryRecord = r.into(T_COUNTRY);
+        records.forEach(r -> {
+            if (countryRecord[0] == null) {
+                countryRecord[0] = r.into(T_COUNTRY);
             }
 
             // Extract the state and city from the record
@@ -65,22 +67,22 @@ public class CountryDetailRepository implements CountryDetailGateway {
 
             // Store the updated set in the map
             stateCitiesMap.put(stateRecord, currStateCities);
-        }
+        });
 
         // Map records to entities
-        CountryDetailEntity country = countryDetailRecordMapper.toEntity(countryRecord);
+        CountryDetailEntity country = countryDetailRecordMapper.toCountryDetailEntity(countryRecord[0]);
 
-        for (TStateRecord stateRecord : stateCitiesMap.keySet()) {
-            StateEntity stateEntity = countryDetailRecordMapper.toStateEntity(stateRecord);
+        stateCitiesMap.forEach((key, value) -> {
+            StateEntity stateEntity = countryDetailRecordMapper.toStateEntity(key);
 
             // Convert the cities and set it to state entity
-            stateEntity.setCities(stateCitiesMap.get(stateRecord).stream()
+            stateEntity.setCities(value.stream()
                     .map(countryDetailRecordMapper::toCityEntity)
                     .collect(Collectors.toSet()));
 
             // Add the state entity to the country
             country.getStates().add(stateEntity);
-        }
+        });
 
         return country;
     }

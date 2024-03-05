@@ -2,6 +2,7 @@ package com.jve.app.infrastructure.repositories.mapper;
 
 import com.jve.app.domain.city.entity.CityEntity;
 import com.jve.app.domain.country.detail.entity.CountryDetailEntity;
+import com.jve.app.domain.country.detail.entity.CountryEntity;
 import com.jve.app.domain.state.entity.StateEntity;
 import com.jve.app.tables.records.TCityRecord;
 import com.jve.app.tables.records.TCountryRecord;
@@ -30,13 +31,35 @@ public interface CountryDetailRepositoryMapper {
     @Mapping(target = "latitude", source = "staLatitude")
     @Mapping(target = "longitude", source = "staLongitude")
     @Mapping(target = "cities", ignore = true)
-
     StateEntity toStateEntity(TStateRecord stateRecord);
 
     @Mapping(target = "id", source = "couId")
     @Mapping(target = "name", source = "couName")
+    @Mapping(target = "iso2", source = "couIso2")
+    @Mapping(target = "iso3", source = "couIso3")
+    @Mapping(target = "numericCode", source = "couNumericCode")
+    @Mapping(target = "phoneCode", source = "couPhoneCode")
+    @Mapping(target = "capitalName", source = "couCapital")
+    @Mapping(target = "currency", source = "couCurrency")
+    @Mapping(target = "latitude", source = "couLatitude")
+    @Mapping(target = "longitude", source = "couLongitude")
+    @Mapping(target = "currencyName", source = "couCurrencyName")
+    @Mapping(target = "currencySymbol", source = "couCurrencySymbol")
+    @Mapping(target = "tld", source = "couTld")
+    @Mapping(target = "nativeName", source = "couNative")
+    @Mapping(target = "region", source = "couRegion")
+    @Mapping(target = "regionId", source = "couRegionId")
+    @Mapping(target = "subregion", source = "couSubregion")
+    @Mapping(target = "subregionId", source = "couSubregionId")
+    @Mapping(target = "nationality", source = "couNationality")
+    @Mapping(target = "timezones", source = "couTimezones")
+    @Mapping(target = "emoji", source = "couEmoji")
+    @Mapping(target = "emojiU", source = "couEmojiu")
+    CountryEntity toCountryEntity(TCountryRecord rec);
+
+    @Mapping(target = "country", expression = "java(this.toCountryEntity(countryRecord))")
     @Mapping(target = "states", ignore = true)
-    CountryDetailEntity toEntity(TCountryRecord countryRecord);
+    CountryDetailEntity toCountryDetailEntity(TCountryRecord countryRecord);
 
     @AfterMapping
     default void setCitiesToState(@MappingTarget StateEntity stateEntity, Set<TCityRecord> cityRecords) {

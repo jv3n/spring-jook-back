@@ -1,46 +1,37 @@
 package com.jve.app.infrastructure.controller.model.dto;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CountryDetailDto {
 
-    private Long id;
-    private String name;
-    private List<StateDto> states;
+    private CountryDto country;
+    private Set<StateDto> states = new HashSet<>();
 
     public CountryDetailDto() {
         /* empty */
     }
 
-    public Long getId() {
-        return id;
+    public CountryDto getCountry() {
+        return country;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCountry(CountryDto country) {
+        this.country = country;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<StateDto> getStates() {
+    public Set<StateDto> getStates() {
         return states;
     }
 
-    public void setStates(List<StateDto> states) {
+    public void setStates(Set<StateDto> states) {
         this.states = states;
     }
 
     @Override
     public String toString() {
         return "CountryDetailDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "country=" + country +
                 ", states=" + states +
                 '}';
     }
