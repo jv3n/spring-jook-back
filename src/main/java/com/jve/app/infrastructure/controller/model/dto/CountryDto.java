@@ -7,7 +7,7 @@ public class CountryDto {
     private String iso2;
     private String iso3;
     private Integer numericCode;
-    private Integer phoneCode;
+    private String phoneCode;
     private String capitalName;
     private String currency;
     private String currencyName;
@@ -65,11 +65,11 @@ public class CountryDto {
         this.numericCode = numericCode;
     }
 
-    public Integer getPhoneCode() {
+    public String getPhoneCode() {
         return phoneCode;
     }
 
-    public void setPhoneCode(Integer phoneCode) {
+    public void setPhoneCode(String phoneCode) {
         this.phoneCode = phoneCode;
     }
 

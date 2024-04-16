@@ -50,6 +50,14 @@ public class CountryDetailRepository implements CountryDetailGateway {
         Map<TStateRecord, Set<TCityRecord>> stateCitiesMap = new HashMap<>();
         final TCountryRecord[] countryRecord = {null};
 
+        if (records.isEmpty()) {
+            countryRecord[0] = dslContext.selectFrom(T_COUNTRY)
+                    .where(T_COUNTRY.COU_ISO3.eq(iso3.toUpperCase()))
+                    .fetch()
+                    .into(T_COUNTRY)
+                    .get(0);
+        }
+
         records.forEach(r -> {
             if (countryRecord[0] == null) {
                 countryRecord[0] = r.into(T_COUNTRY);
