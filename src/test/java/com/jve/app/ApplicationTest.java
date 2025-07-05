@@ -8,5 +8,6 @@ class ApplicationTest {
 
     @Test
     void contextLoads() {
+        // just to verify that Spring Boot context loads properly
     }
 }
