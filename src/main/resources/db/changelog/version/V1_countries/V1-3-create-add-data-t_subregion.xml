@@ -20,7 +20,7 @@
         </createTable>
 
         <loadData
-                file="classpath:db/csv/country/subregions.csv"
+                file="db/csv/country/subregions.csv"
                 separator=","
                 tableName="t_subregion">
             <column name="srg_id" header="id"/>

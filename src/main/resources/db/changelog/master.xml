@@ -4,11 +4,11 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="/db/changelog/version/V1_countries/V1-1-create-add-data-t_country.xml"/>
-    <include file="/db/changelog/version/V1_countries/V1-2-create-add-data-t_region.xml"/>
-    <include file="/db/changelog/version/V1_countries/V1-3-create-add-data-t_subregion.xml"/>
-    <include file="/db/changelog/version/V1_countries/V1-4-create-add-data-t_state.xml"/>
-    <include file="/db/changelog/version/V1_countries/V1-5-create-add-data-t_city.xml"/>
-    <include file="/db/changelog/version/V1_countries/V1-6-country-add-constraint.xml"/>
+    <include file="db/changelog/version/V1_countries/V1-1-create-add-data-t_country.xml"/>
+    <include file="db/changelog/version/V1_countries/V1-2-create-add-data-t_region.xml"/>
+    <include file="db/changelog/version/V1_countries/V1-3-create-add-data-t_subregion.xml"/>
+    <include file="db/changelog/version/V1_countries/V1-4-create-add-data-t_state.xml"/>
+    <include file="db/changelog/version/V1_countries/V1-5-create-add-data-t_city.xml"/>
+    <include file="db/changelog/version/V1_countries/V1-6-country-add-constraint.xml"/>
 
 </databaseChangeLog>

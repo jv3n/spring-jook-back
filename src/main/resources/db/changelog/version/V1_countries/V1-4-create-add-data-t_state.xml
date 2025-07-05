@@ -29,7 +29,7 @@
         </createTable>
 
         <loadData
-                file="classpath:db/csv/country/states.csv"
+                file="db/csv/country/states.csv"
                 separator=","
                 tableName="t_state">
             <column name="sta_id" header="id"/>

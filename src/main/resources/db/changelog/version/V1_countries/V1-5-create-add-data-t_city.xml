@@ -35,7 +35,7 @@
         </createTable>
 
         <loadData
-                file="classpath:db/csv/country/cities.csv"
+                file="db/csv/country/cities.csv"
                 separator=","
                 tableName="t_city">
             <column name="cty_id" header="id"/>

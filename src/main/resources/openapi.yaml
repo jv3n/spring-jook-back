@@ -19,7 +19,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CountryTableDto'
+                  $ref: "#/components/schemas/CountryTableDto"
   /api/country-detail/{iso3}:
     get:
       tags:
@@ -37,7 +37,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/CountryDetailDto'
+                $ref: "#/components/schemas/CountryDetailDto"
 components:
   schemas:
     CountryTableDto:
@@ -82,12 +82,12 @@ components:
       type: object
       properties:
         country:
-          $ref: '#/components/schemas/CountryDto'
+          $ref: "#/components/schemas/CountryDto"
         states:
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/StateDto'
+            $ref: "#/components/schemas/StateDto"
     CountryDto:
       type: object
       properties:
@@ -104,8 +104,7 @@ components:
           type: integer
           format: int32
         phoneCode:
-          type: integer
-          format: int32
+          type: string
         capitalName:
           type: string
         currency:
@@ -160,4 +159,4 @@ components:
         cities:
           type: array
           items:
-            $ref: '#/components/schemas/CityDto'
+            $ref: "#/components/schemas/CityDto"

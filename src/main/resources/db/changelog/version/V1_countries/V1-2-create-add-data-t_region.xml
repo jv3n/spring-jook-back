@@ -17,7 +17,7 @@
         </createTable>
 
         <loadData
-                file="classpath:db/csv/country/regions.csv"
+                file="db/csv/country/regions.csv"
                 separator=","
                 tableName="t_region">
             <column name="reg_id" header="id"/>
