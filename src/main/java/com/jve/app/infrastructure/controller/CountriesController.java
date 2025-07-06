@@ -2,14 +2,16 @@ package com.jve.app.infrastructure.controller;
 
 import com.jve.app.domain.country.usecases.CountriesUsescases;
 import com.jve.app.infrastructure.controller.mapper.CountryDetailDtoMapper;
-import com.jve.app.infrastructure.controller.mapper.CountryTableDtoMapper;
+import com.jve.app.infrastructure.controller.model.PageResult;
+import com.jve.app.infrastructure.controller.model.command.CountriesSearchRequest;
 import com.jve.app.infrastructure.controller.model.dto.CountryDetailDto;
-import com.jve.app.infrastructure.controller.model.dto.CountryTableDto;
-import java.util.List;
+import com.jve.app.infrastructure.controller.model.dto.CountryTableRepresentation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,22 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class CountriesController {
 
   private final CountriesUsescases countriesUsescases;
-  private final CountryTableDtoMapper countryTableDtoMapper;
   private final CountryDetailDtoMapper countryDetailDtoMapper;
 
   public CountriesController(
       CountriesUsescases countriesUsescases,
-      CountryTableDtoMapper countryTableDtoMapper,
       CountryDetailDtoMapper countryDetailDtoMapper
   ) {
     this.countriesUsescases = countriesUsescases;
-    this.countryTableDtoMapper = countryTableDtoMapper;
     this.countryDetailDtoMapper = countryDetailDtoMapper;
   }
 
-  @GetMapping
-  public ResponseEntity<List<CountryTableDto>> search() {
-    return ResponseEntity.ok().body(this.countryTableDtoMapper.toDTOList(this.countriesUsescases.findAll()));
+  @PostMapping()
+  public ResponseEntity<PageResult<CountryTableRepresentation>> search(@RequestBody CountriesSearchRequest request) {
+    return ResponseEntity.ok(countriesUsescases.search(request));
   }
 
   @GetMapping("{iso3}")

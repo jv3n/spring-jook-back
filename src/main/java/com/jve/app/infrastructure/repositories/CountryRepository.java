@@ -1,28 +1,34 @@
 package com.jve.app.infrastructure.repositories;
 
+import static com.jve.app.Tables.T_CITY;
+import static com.jve.app.Tables.T_COUNTRY;
+import static com.jve.app.Tables.T_STATE;
+
 import com.jve.app.domain.country.entity.CountryTable;
 import com.jve.app.domain.country.entity.CountryWithState;
 import com.jve.app.domain.country.port.ICountry;
 import com.jve.app.domain.state.entity.StateEntity;
+import com.jve.app.infrastructure.JooqQueryBuilder;
+import com.jve.app.infrastructure.controller.model.PageResult;
+import com.jve.app.infrastructure.controller.model.command.CountriesSearchRequest;
 import com.jve.app.infrastructure.repositories.mapper.CountryDetailRepositoryMapper;
 import com.jve.app.infrastructure.repositories.mapper.CountryTableRepositoryMapper;
 import com.jve.app.tables.records.TCityRecord;
 import com.jve.app.tables.records.TCountryRecord;
 import com.jve.app.tables.records.TStateRecord;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.jooq.DSLContext;
+import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Result;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static com.jve.app.Tables.*;
 
 @Repository
 public class CountryRepository implements ICountry {
@@ -100,10 +106,41 @@ public class CountryRepository implements ICountry {
     }
 
     @Transactional(readOnly = true)
-    public List<CountryTable> findAll() {
-        return dslContext
-            .selectFrom(T_COUNTRY)
-            .fetch()
-            .map(countryTableRepositoryMapper::toDTO);
+    public PageResult<CountryTable> search(CountriesSearchRequest request) {
+        Map<String, Function<String, Field<?>>> columnMap = Map.of(
+            "name", f -> T_COUNTRY.COU_NAME,
+            "region", f -> T_COUNTRY.COU_REGION,
+            "iso3", f -> T_COUNTRY.COU_ISO3
+        );
+
+        JooqQueryBuilder<TCountryRecord> builder = new JooqQueryBuilder<>(dslContext, T_COUNTRY, columnMap);
+
+        if (request.name() != null) {
+            builder.addCaseInsensitiveLike("name", request.name());
+        }
+        if (request.region() != null) {
+            builder.addCaseInsensitiveEquals("region", request.region());
+        }
+        if (request.iso3() != null) {
+            builder.addCaseInsensitiveEquals("iso3", request.iso3());
+        }
+
+        // Nombre total d'éléments sans pagination
+        int totalElements = builder.fetchCount();
+
+        // Pagination et tri
+        builder.setPage(request.pageRequest().page(), request.pageRequest().size());
+        if (request.sortRequest() != null) {
+            var sort = request.sortRequest();
+            builder.addSort(sort.field(), sort.ascending());
+        }
+
+        // Récupération du contenu paginé
+        List<CountryTable> content = builder.fetch(record -> countryTableRepositoryMapper.toDTO((TCountryRecord) record));
+
+        int size = request.pageRequest().size();
+        int totalPages = (int) Math.ceil((double) totalElements / size);
+
+        return new PageResult<>(content, request.pageRequest().page(), size, totalElements, totalPages);
     }
 }
