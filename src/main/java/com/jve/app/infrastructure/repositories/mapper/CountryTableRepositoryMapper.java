@@ -1,11 +1,9 @@
 package com.jve.app.infrastructure.repositories.mapper;
 
-import com.jve.app.domain.country.table.entity.CountryTableEntity;
+import com.jve.app.domain.country.entity.CountryTable;
 import com.jve.app.tables.records.TCountryRecord;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 
 
 @Mapper(componentModel = "spring")
@@ -24,5 +22,5 @@ public interface CountryTableRepositoryMapper {
     @Mapping(target = "latitude", source = "couLatitude")
     @Mapping(target = "longitude", source = "couLongitude")
     @Mapping(target = "emoji", source = "couEmoji")
-    CountryTableEntity toDTO(TCountryRecord rec);
+    CountryTable toDTO(TCountryRecord rec);
 }

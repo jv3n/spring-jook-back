@@ -1,6 +1,6 @@
-package com.jve.app.domain.country.detail.entity;
+package com.jve.app.domain.country.entity;
 
-public class CountryEntity {
+public class Country {
 
     private Long id;
     private String name;

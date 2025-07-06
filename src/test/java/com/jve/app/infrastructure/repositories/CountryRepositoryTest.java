@@ -1,13 +1,18 @@
 package com.jve.app.infrastructure.repositories;
 
-import com.jve.app.domain.country.detail.entity.CountryDetailEntity;
+import com.jve.app.domain.country.entity.CountryWithState;
 import com.jve.app.domain.state.entity.StateEntity;
+import com.jve.app.infrastructure.repositories.mapper.CountryDetailRepositoryMapper;
+import com.jve.app.infrastructure.repositories.mapper.CountryDetailRepositoryMapperImpl;
+import com.jve.app.infrastructure.repositories.mapper.CountryTableRepositoryMapper;
+import com.jve.app.infrastructure.repositories.mapper.CountryTableRepositoryMapperImpl;
 import java.math.BigDecimal;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jooq.JooqTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -15,15 +20,15 @@ import static com.jve.app.Tables.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JooqTest
-@Import({CountryDetailRepository.class, FakeCountryDetailMapper.class})
+@Import({CountryRepository.class, CountryDetailRepositoryMapperImpl.class, CountryTableRepositoryMapperImpl.class})
 @ActiveProfiles("test")
-class CountryDetailRepositoryTest {
+class CountryRepositoryTest {
 
   @Autowired
   DSLContext dsl;
 
   @Autowired
-  CountryDetailRepository repository;
+  CountryRepository repository;
 
   @BeforeEach
   void insertTestData() {
@@ -63,7 +68,7 @@ class CountryDetailRepositoryTest {
 
   @Test
   void shouldLoadCountryWithStatesAndCities() {
-    CountryDetailEntity result = repository.findByIso3("CAN");
+    CountryWithState result = repository.findByIso3("CAN");
 
     assertThat(result).isNotNull();
     assertThat(result.getStates()).hasSize(1);

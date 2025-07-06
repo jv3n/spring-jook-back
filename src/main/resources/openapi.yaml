@@ -6,11 +6,11 @@ servers:
 - url: http://localhost:8080
   description: Generated server url
 paths:
-  /api/country-table:
+  /api/countries:
     get:
       tags:
-      - country-table-controller
-      operationId: getCountries
+      - countries-controller
+      operationId: search
       responses:
         "200":
           description: OK
@@ -20,10 +20,10 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/CountryTableDto"
-  /api/country-detail/{iso3}:
+  /api/countries/{iso3}:
     get:
       tags:
-      - country-detail-controller
+      - countries-controller
       operationId: getCountryByIso3
       parameters:
       - name: iso3

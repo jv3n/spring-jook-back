@@ -1,25 +1,24 @@
-package com.jve.app.domain.country.detail.entity;
+package com.jve.app.domain.country.entity;
 
 import com.jve.app.domain.state.entity.StateEntity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class CountryDetailEntity {
+public class CountryWithState {
 
-    private CountryEntity country;
+    private Country country;
     private Set<StateEntity> states = new HashSet<>();
 
-    public CountryDetailEntity() {
+    public CountryWithState() {
         /* empty */
     }
 
-    public CountryEntity getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(CountryEntity country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

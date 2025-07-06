@@ -1,6 +1,6 @@
-package com.jve.app.domain.country.table.entity;
+package com.jve.app.domain.country.entity;
 
-public class CountryTableEntity {
+public class CountryTable {
     private Long id;
     private String name;
     private String iso3;
@@ -15,7 +15,7 @@ public class CountryTableEntity {
     private Integer longitude;
     private String emoji;
 
-    public CountryTableEntity() {
+    public CountryTable() {
         /* empty */
     }
 
@@ -23,7 +23,7 @@ public class CountryTableEntity {
         return id;
     }
 
-    public CountryTableEntity setId(Long id) {
+    public CountryTable setId(Long id) {
         this.id = id;
         return this;
     }
@@ -32,7 +32,7 @@ public class CountryTableEntity {
         return name;
     }
 
-    public CountryTableEntity setName(String name) {
+    public CountryTable setName(String name) {
         this.name = name;
         return this;
     }
@@ -41,7 +41,7 @@ public class CountryTableEntity {
         return iso3;
     }
 
-    public CountryTableEntity setIso3(String iso3) {
+    public CountryTable setIso3(String iso3) {
         this.iso3 = iso3;
         return this;
     }
@@ -50,7 +50,7 @@ public class CountryTableEntity {
         return numericCode;
     }
 
-    public CountryTableEntity setNumericCode(Integer numericCode) {
+    public CountryTable setNumericCode(Integer numericCode) {
         this.numericCode = numericCode;
         return this;
     }
@@ -59,7 +59,7 @@ public class CountryTableEntity {
         return capitalName;
     }
 
-    public CountryTableEntity setCapitalName(String capitalName) {
+    public CountryTable setCapitalName(String capitalName) {
         this.capitalName = capitalName;
         return this;
     }
@@ -68,7 +68,7 @@ public class CountryTableEntity {
         return currency;
     }
 
-    public CountryTableEntity setCurrency(String currency) {
+    public CountryTable setCurrency(String currency) {
         this.currency = currency;
         return this;
     }
@@ -77,7 +77,7 @@ public class CountryTableEntity {
         return currencyName;
     }
 
-    public CountryTableEntity setCurrencyName(String currencyName) {
+    public CountryTable setCurrencyName(String currencyName) {
         this.currencyName = currencyName;
         return this;
     }
@@ -86,7 +86,7 @@ public class CountryTableEntity {
         return currencySymbol;
     }
 
-    public CountryTableEntity setCurrencySymbol(String currencySymbol) {
+    public CountryTable setCurrencySymbol(String currencySymbol) {
         this.currencySymbol = currencySymbol;
         return this;
     }
@@ -95,7 +95,7 @@ public class CountryTableEntity {
         return region;
     }
 
-    public CountryTableEntity setRegion(String region) {
+    public CountryTable setRegion(String region) {
         this.region = region;
         return this;
     }
@@ -104,7 +104,7 @@ public class CountryTableEntity {
         return subregion;
     }
 
-    public CountryTableEntity setSubregion(String subregion) {
+    public CountryTable setSubregion(String subregion) {
         this.subregion = subregion;
         return this;
     }
@@ -113,7 +113,7 @@ public class CountryTableEntity {
         return latitude;
     }
 
-    public CountryTableEntity setLatitude(Integer latitude) {
+    public CountryTable setLatitude(Integer latitude) {
         this.latitude = latitude;
         return this;
     }
@@ -122,7 +122,7 @@ public class CountryTableEntity {
         return longitude;
     }
 
-    public CountryTableEntity setLongitude(Integer longitude) {
+    public CountryTable setLongitude(Integer longitude) {
         this.longitude = longitude;
         return this;
     }
@@ -131,7 +131,7 @@ public class CountryTableEntity {
         return emoji;
     }
 
-    public CountryTableEntity setEmoji(String emoji) {
+    public CountryTable setEmoji(String emoji) {
         this.emoji = emoji;
         return this;
     }

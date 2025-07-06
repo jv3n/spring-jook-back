@@ -1,6 +1,6 @@
-package com.jve.app.domain.country.table.domainobject;
+package com.jve.app.infrastructure.controller.model.dto;
 
-public class CountryTable {
+public class CountryTableRepresentation {
     private Long id;
     private String name;
     private String iso3;
@@ -12,7 +12,7 @@ public class CountryTable {
     private String latitudeLongitude;
     private String emoji;
 
-    public CountryTable() {
+    public CountryTableRepresentation() {
         /* empty */
     }
 
@@ -20,7 +20,7 @@ public class CountryTable {
         return id;
     }
 
-    public CountryTable setId(Long id) {
+    public CountryTableRepresentation setId(Long id) {
         this.id = id;
         return this;
     }
@@ -29,7 +29,7 @@ public class CountryTable {
         return name;
     }
 
-    public CountryTable setName(String name) {
+    public CountryTableRepresentation setName(String name) {
         this.name = name;
         return this;
     }
@@ -38,7 +38,7 @@ public class CountryTable {
         return iso3;
     }
 
-    public CountryTable setIso3(String iso3) {
+    public CountryTableRepresentation setIso3(String iso3) {
         this.iso3 = iso3;
         return this;
     }
@@ -47,7 +47,7 @@ public class CountryTable {
         return numericCode;
     }
 
-    public CountryTable setNumericCode(Integer numericCode) {
+    public CountryTableRepresentation setNumericCode(Integer numericCode) {
         this.numericCode = numericCode;
         return this;
     }
@@ -56,7 +56,7 @@ public class CountryTable {
         return capitalName;
     }
 
-    public CountryTable setCapitalName(String capitalName) {
+    public CountryTableRepresentation setCapitalName(String capitalName) {
         this.capitalName = capitalName;
         return this;
     }
@@ -65,7 +65,7 @@ public class CountryTable {
         return currency;
     }
 
-    public CountryTable setCurrency(String currency, String currencyName, String symbol) {
+    public CountryTableRepresentation setCurrency(String currency, String currencyName, String symbol) {
         this.currency = currency + " | " + currencyName + " | " + symbol;
         return this;
     }
@@ -74,7 +74,7 @@ public class CountryTable {
         return region;
     }
 
-    public CountryTable setRegion(String region) {
+    public CountryTableRepresentation setRegion(String region) {
         this.region = region;
         return this;
     }
@@ -83,7 +83,7 @@ public class CountryTable {
         return subregion;
     }
 
-    public CountryTable setSubregion(String subregion) {
+    public CountryTableRepresentation setSubregion(String subregion) {
         this.subregion = subregion;
         return this;
     }
@@ -92,7 +92,7 @@ public class CountryTable {
         return latitudeLongitude;
     }
 
-    public CountryTable setLatitudeLongitude(Integer latitude, Integer longitude) {
+    public CountryTableRepresentation setLatitudeLongitude(Integer latitude, Integer longitude) {
         this.latitudeLongitude = latitude + "," + longitude;
         return this;
     }
@@ -101,7 +101,7 @@ public class CountryTable {
         return emoji;
     }
 
-    public CountryTable setEmoji(String emoji) {
+    public CountryTableRepresentation setEmoji(String emoji) {
         this.emoji = emoji;
         return this;
     }

@@ -1,8 +1,8 @@
 package com.jve.app.infrastructure.repositories.mapper;
 
 import com.jve.app.domain.city.entity.CityEntity;
-import com.jve.app.domain.country.detail.entity.CountryDetailEntity;
-import com.jve.app.domain.country.detail.entity.CountryEntity;
+import com.jve.app.domain.country.entity.CountryWithState;
+import com.jve.app.domain.country.entity.Country;
 import com.jve.app.domain.state.entity.StateEntity;
 import com.jve.app.tables.records.TCityRecord;
 import com.jve.app.tables.records.TCountryRecord;
@@ -55,11 +55,11 @@ public interface CountryDetailRepositoryMapper {
     @Mapping(target = "timezones", source = "couTimezones")
     @Mapping(target = "emoji", source = "couEmoji")
     @Mapping(target = "emojiU", source = "couEmojiu")
-    CountryEntity toCountryEntity(TCountryRecord rec);
+    Country toCountryEntity(TCountryRecord rec);
 
     @Mapping(target = "country", expression = "java(this.toCountryEntity(countryRecord))")
     @Mapping(target = "states", ignore = true)
-    CountryDetailEntity toCountryDetailEntity(TCountryRecord countryRecord);
+    CountryWithState toCountryDetailEntity(TCountryRecord countryRecord);
 
     @AfterMapping
     default void setCitiesToState(@MappingTarget StateEntity stateEntity, Set<TCityRecord> cityRecords) {
@@ -69,7 +69,7 @@ public interface CountryDetailRepositoryMapper {
     }
 
     @AfterMapping
-    default void setStatesToCountry(@MappingTarget CountryDetailEntity countryDetailEntity, Set<TStateRecord> stateRecords) {
+    default void setStatesToCountry(@MappingTarget CountryWithState countryDetailEntity, Set<TStateRecord> stateRecords) {
         countryDetailEntity.setStates(stateRecords.stream()
                 .map(this::toStateEntity)
                 .collect(Collectors.toSet()));

@@ -1,12 +1,15 @@
 package com.jve.app.infrastructure.repositories;
 
-import com.jve.app.domain.country.detail.entity.CountryDetailEntity;
-import com.jve.app.domain.country.detail.port.CountryDetailGateway;
+import com.jve.app.domain.country.entity.CountryTable;
+import com.jve.app.domain.country.entity.CountryWithState;
+import com.jve.app.domain.country.port.ICountry;
 import com.jve.app.domain.state.entity.StateEntity;
 import com.jve.app.infrastructure.repositories.mapper.CountryDetailRepositoryMapper;
+import com.jve.app.infrastructure.repositories.mapper.CountryTableRepositoryMapper;
 import com.jve.app.tables.records.TCityRecord;
 import com.jve.app.tables.records.TCountryRecord;
 import com.jve.app.tables.records.TStateRecord;
+import java.util.List;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
@@ -21,20 +24,21 @@ import java.util.stream.Collectors;
 
 import static com.jve.app.Tables.*;
 
-
-@Transactional(readOnly = true)
 @Repository
-public class CountryDetailRepository implements CountryDetailGateway {
+public class CountryRepository implements ICountry {
 
     private final DSLContext dslContext;
     private final CountryDetailRepositoryMapper countryDetailRecordMapper;
+    private final CountryTableRepositoryMapper countryTableRepositoryMapper;
 
-    public CountryDetailRepository(DSLContext dslContext, CountryDetailRepositoryMapper countryDetailRecordMapper) {
+    public CountryRepository(DSLContext dslContext, CountryDetailRepositoryMapper countryDetailRecordMapper, CountryTableRepositoryMapper countryTableRepositoryMapper) {
         this.dslContext = dslContext;
         this.countryDetailRecordMapper = countryDetailRecordMapper;
+        this.countryTableRepositoryMapper = countryTableRepositoryMapper;
     }
 
-    public CountryDetailEntity findByIso3(String iso3) {
+    @Transactional(readOnly = true)
+    public CountryWithState findByIso3(String iso3) {
         // Perform the JOIN operation
         Result<Record> records = dslContext.select(
                         T_COUNTRY.asterisk(),
@@ -78,7 +82,7 @@ public class CountryDetailRepository implements CountryDetailGateway {
         });
 
         // Map records to entities
-        CountryDetailEntity country = countryDetailRecordMapper.toCountryDetailEntity(countryRecord[0]);
+        CountryWithState country = countryDetailRecordMapper.toCountryDetailEntity(countryRecord[0]);
 
         stateCitiesMap.forEach((key, value) -> {
             StateEntity stateEntity = countryDetailRecordMapper.toStateEntity(key);
@@ -93,5 +97,13 @@ public class CountryDetailRepository implements CountryDetailGateway {
         });
 
         return country;
+    }
+
+    @Transactional(readOnly = true)
+    public List<CountryTable> findAll() {
+        return dslContext
+            .selectFrom(T_COUNTRY)
+            .fetch()
+            .map(countryTableRepositoryMapper::toDTO);
     }
 }
